@@ -1,9 +1,7 @@
 package com.packtpublishing.tddjava.ch02friendships;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,17 +26,24 @@ public class FriendshipsTest {
         friendships.makeFriends("Joe", "Paul");
     }
 
-    @Test
+    @AfterClass
+    public static void afterClass() {
+        // This method will be executed once when all test are executed
+    }
+
+    @AfterMethod
+    public void after() {
+        // This method will be executed once after each test execution
+    }
+
     public void alexDoesNotHaveFriends() {
         Assert.assertTrue(friendships.getFriendsList("Alex").isEmpty(), "Alex does not have friends");
     }
 
-    @Test
     public void joeHas5Friends() {
         Assert.assertEquals(friendships.getFriendsList("Joe").size(), 5, "Joe has 5 friends");
     }
 
-    @Test
     public void joeIsFriendWithEveryone() {
         List<String> friendsOfJoe = Arrays.asList("Audrey", "Peter", "Michael", "Britney", "Paul");
         Assert.assertTrue(friendships.getFriendsList("Joe").containsAll(friendsOfJoe));
